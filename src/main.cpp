@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int fitCalc(Individual &ind){
+int fitCalc(Individual ind){
 	int ones = 0;
 
 	for(int i=0 ; i< ind.genes.size(); i++){
@@ -13,11 +13,31 @@ int fitCalc(Individual &ind){
 	return ones;
 }
 
+void setSeed(){
+	srand(time(NULL));
+}
+
 int main(){
-	AG ag(2, 10, 20);
+	setSeed();
+
+	AG ag(5, 5, 20);
 	ag.ftn = &fitCalc;
 	ag.evalPopulation();
+	ag.sortPopulation(1);
+	printf("---------------------------------------------\n");
 	ag.printPopulation();
+
+
+	int x = 4;
+
+	while(x--){
+		printf("--------Crossing top individuals--------\n");
+		ag.crossTopIndividuals(4);
+
+
+		printf("-----Printing new population-------\n");
+		ag.printPopulation();		
+	}
 
 	return 0;
 }

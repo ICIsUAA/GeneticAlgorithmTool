@@ -3,11 +3,18 @@
 
 using namespace std;
 
+
+struct Individual{
+	vector<int> genes;
+	int fitness = 0;
+};
+
+typedef int (*Fitness) (Individual &ind);
+
 class AG{
 
 private:
-	vector<int> genes;
-	vector<vector<int> > population;
+	vector<Individual> population;
 
 	int MutationProb;
 	int genesSize;
@@ -30,51 +37,55 @@ public:
 
 	// Getters 
 	int getGenesSize(){
-		return genes.size();
+		return genesSize;
 	}
 
 	// Methods
-	vector<int> generateIndividual(){
+	Individual generateIndividual(){
 		vector<int> individual;
 
 		for(int i=0 ; i<genesSize; i++){
 			individual.push_back(rand()%2);
 		}
-		return individual;
+
+		Individual ind;
+		ind.genes = individual;
+		return ind;
 	}
 
 	void generateRandomPopulation(){
-		population = vector<vector<int> >();
+		population = vector<Individual>();
 		
 		for(int i=0 ; i<populationSize; i++){
 			population.push_back(generateIndividual());
 		}
 	}
 
-	void printIndividual(vector<int> ind){
-		int sz = ind.size();
+	void printIndividual(Individual ind){
+		int sz = ind.genes.size();
 
 		for(int i=0 ; i<sz; i++){
-			printf("%d", ind[i] );
+			printf("%d", ind.genes[i] );
 		}
 
-		printf("\n");
+		printf(" | Fitness: %d\n",ind.fitness);
 	}
 
 	void printIndividual(int idx){
-		vector<int> ind = population[idx];
-		int sz = ind.size();
-
-		for(int i=0 ; i<sz; i++){
-			printf("%d", ind[i] );
-		}
-
-		printf("\n");
+		printIndividual(population[idx]);
 	}
 
 	void printPopulation(){
 		for(int i=0 ; i<populationSize ; i++){
 			printIndividual(population[i]);
+		}
+	}
+
+	Fitness ftn;
+
+	void evalPopulation(){
+		for(int i=0 ; i < populationSize ; i++){
+			population[i].fitness = ftn(population[i]);
 		}
 	}
 

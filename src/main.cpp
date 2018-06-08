@@ -3,7 +3,10 @@
 
 using namespace std;
 
-int fitCalc(Individual ind){
+int fitCalc(Individual ind){ // Define your own fitness calculator and set it to a delegate
+	// one max fitness function
+	// Count the number of ones the gene vector contains.
+
 	int ones = 0;
 
 	for(int i=0 ; i< ind.genes.size(); i++){
@@ -20,23 +23,23 @@ void setSeed(){
 int main(){
 	setSeed();
 
-	AG ag(5, 5, 20);
-	ag.ftn = &fitCalc;
-	ag.evalPopulation();
-	ag.sortPopulation(1);
+	AG ag(10, 5, 20); // Gene size - population size - mutation probability
+	ag.ftn = &fitCalc; // Set our fitness function
+	ag.evalPopulation(); // Evaluate the whole population
+	ag.sortPopulation(1); // Sort the population from greatest to lowest fitness
+
 	printf("---------------------------------------------\n");
-	ag.printPopulation();
+	ag.printPopulation(); // Print the population
 
 
-	int x = 4;
-
+	int x = 4; // Iterate 4 times
 	while(x--){
 		printf("--------Crossing top individuals--------\n");
-		ag.crossTopIndividuals(4);
+		ag.crossTopIndividuals(4); // Cross the top n individuals
 
 
 		printf("-----Printing new population-------\n");
-		ag.printPopulation();		
+		ag.printPopulation(); // Print the population
 	}
 
 	return 0;

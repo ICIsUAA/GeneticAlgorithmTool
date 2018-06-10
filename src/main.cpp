@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include "ag.h"
+#include "AgWritter.h"
 
 using namespace std;
 
@@ -42,5 +44,10 @@ int main(){
 		ag.printPopulation(); // Print the population
 	}
 
+
+	//AG Writter
+	AgWritter agw(&ag, "writeme.txt");
+	agw.writePopulation(1);
+	agw.writeTopIndividual(1);
 	return 0;
 }

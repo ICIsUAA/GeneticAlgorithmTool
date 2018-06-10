@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <queue>
+#include <sstream>
 
 using namespace std;
 
@@ -17,6 +18,16 @@ struct Individual{
 
 	bool operator> (Individual other)const{
 		return fitness > other.fitness; 
+	}
+
+	string toString(){
+		ostringstream os;
+		for(int i=0 ; i<genes.size(); i++){
+			os << genes[i];
+		}
+		os << " | " << fitness << endl;
+
+		return os.str();
 	}
 };
 
@@ -67,6 +78,16 @@ public:
 	int getCrossPoint(){
 
 		return (crossPoint != 0 ) ? crossPoint : rand() % (genesSize-2) + 1; //greater than 0 || lower than genesize
+	}
+
+	vector<Individual> getPopulation(){
+		return population;
+	}
+	
+	// if greater = true, returns higher fitness individual, otherwhise, returns lower fitness
+	Individual getTopIndividual(bool greater){ 
+		sortPopulation(greater);
+		return population[0];
 	}
 
 	// Methods
@@ -192,7 +213,4 @@ public:
 		setMutationProb(mp);
 		generateRandomPopulation();
 	}
-
-
-
 };

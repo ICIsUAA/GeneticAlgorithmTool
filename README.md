@@ -67,3 +67,10 @@ int main(){
 
 ```
 
+# AgWritter - Write your GA into a file
+With the usage of the AgWritter class you will be able to write files that contain information about your Genetic Algorithm object.
+
+## Usage
+```cpp
+	// Examples go here
+```

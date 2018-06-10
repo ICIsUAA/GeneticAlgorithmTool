@@ -69,6 +69,10 @@ public:
 		return (crossPoint != 0 ) ? crossPoint : rand() % (genesSize-2) + 1; //greater than 0 || lower than genesize
 	}
 
+	vector<Individual> getPopulation(){
+		return population;
+	}
+
 	// Methods
 	Individual generateIndividual(){
 		vector<int> individual;

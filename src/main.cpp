@@ -48,6 +48,6 @@ int main(){
 	//AG Writter
 	AgWritter agw(&ag, "writeme.txt");
 	agw.writePopulation(1);
-
+	agw.writeTopIndividual(1);
 	return 0;
 }
